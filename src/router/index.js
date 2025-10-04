@@ -1,13 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-const GreetingView = () => import('@/views/GreetingView.vue')
-const HomepageView = () => import('@/views/HomepageView.vue')
-const AuthView = () => import('@/layouts/AuthView.vue')
+const GreetingPage = () => import('@/views/GreetingView.vue')
+const HomepagePage = () => import('@/views/HomepageView.vue')
+const AuthPage = () => import('@/views/AuthView.vue')
+const LoginPage = () => import('@/views/LoginView.vue')
+const RegistrationPage = () => import('@/views/RegistrationView.vue')
 
 const routes = [
-  { path: '/', component: GreetingView },
-  { path: '/map', component: HomepageView },
-  { path: '/auth', component: AuthView },
+  { path: '/', component: GreetingPage },
+  { path: '/map', component: HomepagePage },
+  {
+    path: '/auth',
+    component: AuthPage,
+    children: [
+      { path: 'login', component: LoginPage },
+      { path: 'registration', component: RegistrationPage },
+    ],
+  },
 ]
 
 export const router = createRouter({
