@@ -1,10 +1,20 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterView, RouterLink } from 'vue-router'
 import BaseLayout from '../layouts/BaseLayout.vue'
 </script>
 
 <template>
   <BaseLayout>
-    <router-view></router-view>
+    <section class="w-full bg-white p-10 rounded-2xl">
+      <div class="flex justify-center gap-10 mb-10">
+        <router-link to="registration" class="text-gray font-bold" exact-active-class="text-primary"
+          >Create account</router-link
+        >
+        <router-link to="login" class="text-gray font-bold" exact-active-class="text-primary"
+          >Login</router-link
+        >
+      </div>
+      <router-view></router-view>
+    </section>
   </BaseLayout>
 </template>
