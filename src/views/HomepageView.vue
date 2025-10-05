@@ -1,27 +1,13 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { MapboxMap, MapboxMarker } from '@studiometa/vue-mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { mapSettings } from '../map/settings.js'
 import FavoritePlaces from '../components/FavoritePlaces/FavoritePlaces.vue'
 import MarkerIcon from '../components/icons/MarkerIcon.vue'
+import { getFavoritePlaces } from '@/api/favorite-places/index.js'
 
-const favoritePlaces = [
-  {
-    id: 1,
-    title: 'New place 1',
-    description: 'Description 1',
-    img: '',
-    lngLat: [7.791667, 47.591111],
-  },
-  {
-    id: 2,
-    title: 'New place 2',
-    description: 'Description 2',
-    img: '',
-    lngLat: [7.791667, 47.501111],
-  },
-]
+const favoritePlaces = ref([])
 
 const activeId = ref(null)
 
@@ -32,10 +18,15 @@ const changeActiveId = (id) => {
 }
 
 const changePlace = (id) => {
-  const { lngLat } = favoritePlaces.find((place) => place.id === id)
+  const { lngLat } = favoritePlaces.value.find((place) => place.id === id)
   changeActiveId(id)
   map.value.flyTo({ center: lngLat, zoom: 14 })
 }
+
+onMounted(async () => {
+  const { data } = await getFavoritePlaces()
+  favoritePlaces.value = data
+})
 </script>
 
 <template>
