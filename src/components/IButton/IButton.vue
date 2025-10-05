@@ -11,6 +11,7 @@ const props = defineProps({
     },
   },
   to: String,
+  isLoading: { type: Boolean, default: false },
 })
 
 const bgStyles = computed(() => {
@@ -36,6 +37,7 @@ const link = computed(() => {
     class="bg-[#FFA279] rounded-xl py-[14px] px-10 text-white -tracking-wider font-bold cursor-pointer"
     :class="bgStyles"
   >
-    <slot></slot>
+    <template v-if="props.isLoading">Loading...</template>
+    <template v-else><slot></slot></template>
   </component>
 </template>

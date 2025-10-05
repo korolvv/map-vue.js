@@ -4,6 +4,12 @@ import { reactive, toRaw } from 'vue'
 
 import IButton from '@/components/IButton/IButton.vue'
 
+const props = defineProps({
+  isLoading: {
+    type: Boolean,
+    default: false,
+  },
+})
 const emit = defineEmits(['submit'])
 const userData = reactive({
   email: '',
@@ -20,6 +26,8 @@ const userData = reactive({
       placeholder="*************"
       label="Password"
     />
-    <IButton class="mt-10 w-full" variant="gradient" type="submit">Sign in</IButton>
+    <IButton class="mt-10 w-full" variant="gradient" type="submit" :is-loading="props.isLoading"
+      >Sign in</IButton
+    >
   </form>
 </template>
