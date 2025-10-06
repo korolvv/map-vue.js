@@ -1,9 +1,9 @@
-import { clientFetch } from '@/api/clientFetch'
-import { router } from '@/router'
+import { clientFetch } from '../clientFetch'
+import { router } from '../../router'
 
 export const TOKEN_KEY = 'token'
 
-class AuthSevice {
+class AuthService {
   #token = null
 
   isLoggedIn() {
@@ -16,7 +16,6 @@ class AuthSevice {
 
   setToken(token) {
     localStorage.setItem(TOKEN_KEY, token)
-
     this.#token = token
   }
 
@@ -41,6 +40,7 @@ class AuthSevice {
 
   async logout() {
     await clientFetch.get('/user/logout')
+
     this.clearToken()
   }
 
@@ -52,7 +52,7 @@ class AuthSevice {
   }
 }
 
-export const authService = new AuthSevice()
+export const authService = new AuthService()
 
 clientFetch.interceptors.request.use((request) => {
   const token = authService.getToken()
@@ -60,7 +60,7 @@ clientFetch.interceptors.request.use((request) => {
   if (token) {
     request.headers = {
       ...request.headers,
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`
     }
   }
 
@@ -82,5 +82,5 @@ clientFetch.interceptors.response.use(
     }
 
     return Promise.reject(error)
-  },
+  }
 )

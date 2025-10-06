@@ -16,14 +16,14 @@ const routes = [
     redirect: '/auth/login',
     children: [
       { path: 'login', component: LoginPage, name: 'login' },
-      { path: 'registration', component: RegistrationPage, name: 'registration' },
-    ],
-  },
+      { path: 'registration', component: RegistrationPage, name: 'registration' }
+    ]
+  }
 ]
 
 export const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes
 })
 
 router.beforeEach((to, from, next) => {

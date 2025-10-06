@@ -7,16 +7,23 @@ export const useMutation = ({ mutationFn, onSuccess, onError }) => {
 
   const mutation = async (...args) => {
     isLoading.value = true
+
     try {
       data.value = await mutationFn(...args)
       error.value = null
       onSuccess?.(data)
-    } catch (err) {
-      onError?.(err)
-      error.value = err
+    } catch (e) {
+      error.value = e
+      onError?.(error)
     } finally {
       isLoading.value = false
     }
   }
-  return { data, isLoading, error, mutation }
+
+  return {
+    data,
+    isLoading,
+    error,
+    mutation
+  }
 }

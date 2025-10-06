@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, onUnmounted, Teleport } from 'vue'
+import CrossIcon from '../icons/CrossIcon.vue'
 
 const emit = defineEmits(['close'])
 
@@ -19,8 +20,8 @@ onUnmounted(() => {
       @click.self="emit('close')"
     >
       <div class="relative bg-white min-w-[350px] m-auto text-black rounded-2xl p-10">
-        <button class="cursor-pointer absolute right-3 top-3" @click="emit('close')">
-          <img src="../../assets/icons/x.svg" class="w-6 h-6" />
+        <button class="absolute right-3 top-3">
+          <CrossIcon class="w-6 h-6" @click="emit('close')" />
         </button>
         <slot></slot>
       </div>

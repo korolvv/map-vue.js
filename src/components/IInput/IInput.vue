@@ -7,12 +7,12 @@ const props = defineProps({
   placeholder: String,
   type: {
     default: 'text',
-    type: String,
-  },
+    type: String
+  }
 })
 
 defineOptions({
-  inheritAttrs: false,
+  inheritAttrs: false
 })
 
 const emit = defineEmits(['update:modelValue'])

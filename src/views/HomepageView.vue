@@ -20,9 +20,9 @@ const { isOpen, closeModal, openModal } = useModal()
 const {
   data,
   mutation: getPlaces,
-  isLoading: isPlacesLoading,
+  isLoading: isPlacesLoading
 } = useMutation({
-  mutationFn: () => getFavoritePlaces(),
+  mutationFn: () => getFavoritePlaces()
 })
 
 const favoritePlaces = computed(() => data.value ?? [])
@@ -30,14 +30,14 @@ const favoritePlaces = computed(() => data.value ?? [])
 const {
   mutation: addPlace,
   isLoading: isAddingPlace,
-  error,
+  error
 } = useMutation({
   mutationFn: (newPlaceData) => addFavoritePlace(newPlaceData),
   onSuccess: () => {
     closeModal()
     mapMarkerLngLat.value = null
     getPlaces()
-  },
+  }
 })
 
 const changeActiveId = (id) => {
@@ -57,7 +57,7 @@ const handleMapClick = ({ lngLat }) => {
 const handleAddPlace = async (formData, resetForm) => {
   const body = {
     ...formData,
-    coordinates: mapMarkerLngLat.value,
+    coordinates: mapMarkerLngLat.value
   }
 
   await addPlace(body)
@@ -83,7 +83,9 @@ onMounted(() => {
         @create="openModal"
         @updated="getPlaces"
       />
+
       <LogoutButton class="mt-10" />
+
       <CreateNewPlaceModal
         :is-open="isOpen"
         :is-loading="isAddingPlace"
