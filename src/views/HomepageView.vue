@@ -20,9 +20,9 @@ const { isOpen, closeModal, openModal } = useModal()
 const {
   data,
   mutation: getPlaces,
-  isLoading: isPlacesLoading
+  isLoading: isPlacesLoading,
 } = useMutation({
-  mutationFn: () => getFavoritePlaces()
+  mutationFn: () => getFavoritePlaces(),
 })
 
 const favoritePlaces = computed(() => data.value ?? [])
@@ -30,14 +30,14 @@ const favoritePlaces = computed(() => data.value ?? [])
 const {
   mutation: addPlace,
   isLoading: isAddingPlace,
-  error
+  error,
 } = useMutation({
   mutationFn: (newPlaceData) => addFavoritePlace(newPlaceData),
   onSuccess: () => {
     closeModal()
     mapMarkerLngLat.value = null
     getPlaces()
-  }
+  },
 })
 
 const changeActiveId = (id) => {
@@ -57,7 +57,7 @@ const handleMapClick = ({ lngLat }) => {
 const handleAddPlace = async (formData, resetForm) => {
   const body = {
     ...formData,
-    coordinates: mapMarkerLngLat.value
+    coordinates: mapMarkerLngLat.value,
   }
 
   await addPlace(body)
@@ -98,7 +98,7 @@ onMounted(() => {
       <MapboxMap
         class="w-full h-full"
         :center="[30.523333, 50.450001]"
-        :zoom="10"
+        :zoom="14"
         :access-token="mapSettings.apiToken"
         :map-style="mapSettings.style"
         @mb-click="handleMapClick"
